@@ -1,0 +1,5 @@
+Define your own versin of StrBlobPtr and
+update yor StrBlob 
+class with the appropriate friend
+declaration and begin 
+and end members.
