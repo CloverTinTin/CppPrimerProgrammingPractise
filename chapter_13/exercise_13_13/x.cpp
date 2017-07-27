@@ -33,6 +33,13 @@ int main()
 	cout << "call noReference:" << endl;
 	noReference(x1);
 	vector<X> xVec;
-	cout << "push into vector" << endl;
+	cout << "push into vector:" << endl;
 	xVec.push_back(x1);
+	cout << "new X:" << endl;
+	X *xp = new X;
+	cout << "delete X:" << endl;
+	delete xp;
+	cout << "assign X:" << endl;
+	x1 = x2;
+	return 0;
 }
