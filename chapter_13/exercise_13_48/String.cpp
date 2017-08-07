@@ -25,10 +25,13 @@ String::String(const String &str)
 
 String &String::operator=(const String &str)
 {
-	free();
-	auto data = copyStr(str.begin(), str.end());
-	elements = data.first;
-	first_new = cap = data.second;
+	if(&str != this)
+	{
+		free();
+		auto data = copyStr(str.begin(), str.end());
+		elements = data.first;
+		first_new = cap = data.second;
+	}
 	return *this;
 }
 

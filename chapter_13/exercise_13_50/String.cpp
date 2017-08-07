@@ -5,7 +5,7 @@
 #include <utility>
 #include <cstring>
 
-String::String(char *cstr)
+String::String(const char *cstr)
 {
 	auto data = copyStr(cstr, cstr + strlen(cstr));
 	elements = data.first;
@@ -14,9 +14,32 @@ String::String(char *cstr)
 
 String::String(const String &str)
 {
+	std::cout << "copy: ";
+	for(auto i = str.begin(); i < str.end(); ++i)
+		std::cout << *i << " ";
+	std::cout << std::endl;
 	auto data = copyStr(str.begin(), str.end());
 	elements = data.first;
 	first_new = cap = data.second;
+}
+
+String::String(String &&s) noexcept: elements(s.elements), first_new(s.first_new), cap(s.cap)
+{
+	s.elements = s.first_new = s.cap = nullptr;
+}
+
+String &String::operator=(String &&s) noexcept
+{
+	std::cout << "move contructor" << std::endl;
+	if(&s != this)
+	{
+		free();
+		elements = s.elements;
+		first_new = s.first_new;
+		cap = s.cap;
+		s.elements = s.first_new = s.cap = nullptr;
+	}
+	return *this;
 }
 
 String &String::operator=(const String &str)
@@ -54,7 +77,7 @@ void String::reallocate()
 	std::for_each(elements, first_new, [this, &cursor](char &c){alloc.construct(cursor++, std::move(c));});
 }
 
-std::pair<char *, char *> String::copyStr(char *left, char *right)
+std::pair<char *, char *> String::copyStr(const char *left, const char *right)
 {
 	auto newHead = alloc.allocate(right - left);
 	return {newHead, std::uninitialized_copy(left, right, newHead)};

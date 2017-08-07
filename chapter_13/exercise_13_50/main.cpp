@@ -2,6 +2,12 @@
 #include <vector>
 #include "String.h"
 
+String getStr()
+{
+	String str("abcd");
+	return str;
+}
+
 int main()
 {
 	char s[] = "abcdefg", s2[] = "hijklmn";
@@ -24,6 +30,8 @@ int main()
 	str = str;
 	for(auto i = str.begin(); i < str.end(); ++i)
 		std::cout << *i << " ";
+
+        String moveTest = getStr();
 	std::cout << std::endl;
 	return 0;
 }
