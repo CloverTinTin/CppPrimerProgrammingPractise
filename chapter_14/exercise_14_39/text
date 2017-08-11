@@ -1,0 +1,39 @@
+function template
+<algorithm>
+std::replace_if
+template <class ForwardIterator, class UnaryPredicate, class T>
+  void replace_if (ForwardIterator first, ForwardIterator last,
+                   UnaryPredicate pred, const T& new_value );
+Replace values in range
+Assigns new_value to all the elements in the range [first,last) for which pred returns true.
+
+The behavior of this function template is equivalent to:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+template < class ForwardIterator, class UnaryPredicate, class T >
+  void replace_if (ForwardIterator first, ForwardIterator last,
+                   UnaryPredicate pred, const T& new_value)
+{
+  while (first!=last) {
+    if (pred(*first)) *first=new_value;
+    ++first;
+  }
+}
+
+
+Parameters
+first, last
+Forward iterators to the initial and final positions in a sequence of elements that support being assigned a value of type T. The range used is [first,last), which contains all the elements between first and last, including the element pointed by first but not the element pointed by last.
+pred
+Unary function that accepts an element in the range as argument, and returns a value convertible to bool. The value returned indicates whether the element is to be replaced (if true, it is replaced).
+The function shall not modify its argument.
+This can either be a function pointer or a function object.
+new_value
+Value to assign to replaced elements.
